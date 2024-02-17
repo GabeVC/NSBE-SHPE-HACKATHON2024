@@ -23,7 +23,7 @@ function News() {
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/community">Community</Link></li>
-          <li><Link to="/my-progress">My Progress</Link></li>
+          <li><Link to="/progress">My Progress</Link></li>
           <li><Link to="/friends">Friends</Link></li>
           <li><Link to="/News">News</Link></li>
           <li><Link to="/Help">Help</Link></li>

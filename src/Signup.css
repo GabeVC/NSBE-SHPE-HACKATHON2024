@@ -1,0 +1,60 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  .sign div {
+    font-size: 24px;
+
+    text-align: center;
+    margin-top: 0; /* Reduces spacing from the top */
+  }
+  
+  .login-div {
+    text-align: center;
+    margin-top: 2.5px   ; /* Reduces spacing from the heading */
+  }
+  
+  .AAccount {
+    font-size: 14px;
+  }
+  
+  .form1 {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 400px;
+     /* Adjust space above the form if needed */
+  }
+  
+  .un,
+  .pass,
+  .pass2 {
+    padding: 10px;
+    margin-top: 5px; /* Reduces spacing between inputs */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .pass_alert {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px; /* Adjust spacing after alert text */
+  }
+  
+  .submit {
+    padding: 10px;
+    background-color: #28a745; /* Uses a green shade for the button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px; /* Adjust space above the button if needed */
+  }
+  
+  .submit:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
