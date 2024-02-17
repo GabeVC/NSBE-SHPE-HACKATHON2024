@@ -1,13 +1,3 @@
-
-  
-  /* If you have a specific container for your homepage, use something like */
-  .home-container {
-    background-image: url('./home_background.webp');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh; /* Make sure it covers the full viewport height */
-  }
-
 .top-nav ul {
     list-style-type: none;
     margin: 0;
