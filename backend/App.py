@@ -97,6 +97,7 @@ def get_finance_news():
         return jsonify(top_articles)
     else:
         return jsonify({"error": "Failed to fetch news"}), response.status_codes
+    
 @app.route('/friends', methods=['GET'])
 def get_friends():
     try:
@@ -120,6 +121,51 @@ def get_friends():
         # Return a server error message in case of an exception
         return jsonify({"error": str(e)}), 500
         
+@app.route('/search', methods=['GET'])
+def search_friends():
+    try:
+        # Retrieve the search query from the query parameters
+        search_query = request.args.get('query')
+        
+        # Search for potential matches in the list of users
+        matches = [user[0] for user in users if search_query.lower() in user[0].lower()]
+        
+        return jsonify(matches), 200
+    except Exception as e:
+        # Return a server error message in case of an exception
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/add-friend', methods=['POST'])
+def add_friend():
+    try:
+       
+        # Parse data sent from the frontend
+        data = request.json
+        print("I'm here")
+        # Extract necessary information from the data
+        username = data.get('username')
+        print(username+"!!!")
+        friend_username = data.get('friend_username')
+        print(friend_username+"!!!")
+        # Find the user object based on the username
+        user = next((user for user in users if user[0] == username), None)
+        print(user.name)
+        friend = next((user for user in users if user[0] == friend_username), None)
+        print(friend.name)
+        
+        if user and friend:
+            # Add friend to user's friend list (assuming friends is the list of friends in the user object)
+            user[2].addFriend(friend)
+            print("Hi")
+            
+            # Return a success response
+            return jsonify({"success": True, "message": f"{friend_username} added you as a friend."}), 200, 200
+        else:
+            return jsonify({"success": False, "message": "User or friend not found."}), 404
+    
+    except Exception as e:
+        # Return a server error message in case of an exception
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/community', methods=['GET'])
 def get_communities():
@@ -137,6 +183,27 @@ def get_communities():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/Seegoal', methods=['GET'])
+def see_goal():
+    try:
+        print("hello2")
+        username = request.args.get('username')
+        user = next((user for user in users if user[0] == username), None)
+        if user:
+            print("hello")
+            goal = 100
+            print("hello4")
+           # Assuming user is a dictionary or an object with attributes. Adjust accordingly.
+            stats = {"goal": goal}
+            print("hello3")
+            return jsonify(stats), 200
+        else:
+            return jsonify(False), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+        
+        
 @app.route('/setGoal', methods=['POST'])
 def goal_set():
     try:
@@ -146,20 +213,22 @@ def goal_set():
         # Extract necessary information from the data
         username = data.get('username')
         goal_value = data.get('goal_value')
-        weekly_saving = data.get('weekly_saving')
+        payment = data.get('weekly_saving')
         
         # Find the user object based on the username
         user = next((user for user in users if user[0] == username), None)
         
         if user:
             # Update the user's Person object with the received goal data
-            user[2].setGoal(goal_value, weekly_saving)
+            user[2].setGoal(goal_value, payment)
+            print(user[2].goal)
+            print(user[2].payment)
             
             # Calculate weeks needed here if necessary
             
             # Return a success response with weeksNeeded if calculated
             # You can adjust this response as needed based on your requirements
-            return jsonify({"success": True, "weeksNeeded": user[2].weeksNeeded}), 200
+            return jsonify({"success": True, "weeksNeeded": user[2].payment}), 200
         else:
             return jsonify({"success": False, "message": "User not found"}), 404
     

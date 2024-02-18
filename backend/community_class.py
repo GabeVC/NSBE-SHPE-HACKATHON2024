@@ -14,9 +14,15 @@ class community:
         self.community_goal_precent = totalPercent / (len(self.people))
         
     def addPerson(self, person):
+        for p in self.people:
+            if person.id == p.id:
+                return
         self.people.append(person)
         self.updateCommunityGoal()
     
     def removePerson(self, person):
-        self.people.remove(person)
+        for p in self.people:
+            if person.id == p.id:
+                self.people.remove(person)
+                break
         self.updateCommunityGoal()

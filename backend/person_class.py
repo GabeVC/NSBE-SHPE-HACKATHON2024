@@ -81,11 +81,13 @@ class Person:
         for c in self.community:
             if a_community.id == c.id:
                 return
+        a_community.addPerson(self)
         self.community.append(a_community)
     
     def removeCommunity(self, a_community):
         for c in self.community:
             if a_community.id == c.id:
+                c.removePerson(self)
                 self.community.remove(c)
                 break
         return
