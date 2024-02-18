@@ -149,13 +149,15 @@ def add_friend():
         print(friend_username+"!!!")
         # Find the user object based on the username
         user = next((user for user in users if user[0] == username), None)
-        print(user.name)
+        print("ok now here")
         friend = next((user for user in users if user[0] == friend_username), None)
-        print(friend.name)
+        print("ok now here")
+        print("ok now here")
         
-        if user and friend:
+        if user!= None and friend != None:
+            print("ok now here")
             # Add friend to user's friend list (assuming friends is the list of friends in the user object)
-            user[2].addFriend(friend)
+            user[2].addFriend(friend[2])
             print("Hi")
             
             # Return a success response
