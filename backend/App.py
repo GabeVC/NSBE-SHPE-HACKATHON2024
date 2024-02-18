@@ -192,6 +192,7 @@ def see_goal():
         username = request.args.get('username')
         user = next((user for user in users if user[0] == username), None)
         if user:
+            
             print("hello")
             goal = 100
             print("hello4")
