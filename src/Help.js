@@ -2,22 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, useNavigate } from 'react-router-dom';
 import './Help.css'
+import Navbar from './Navbar';
 
 const Help = () => {
     return (
       <>
-        <nav className="top-nav">
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/community">Community</Link></li>
-            <li><Link to="/progress">My Progress</Link></li>
-            <li><Link to="/friends">Friends</Link></li>
-            <li><Link to="/news">News</Link></li>
-            <li><Link to="/Help">Help</Link></li>
-            <li className="right"><Link to="/login" role="button">Login</Link></li>
-            <li className="right"><Link to="/signup" role="button">Signup</Link></li>
-          </ul>
-        </nav>
+        <Navbar />
         <div className="help-container">
           <h1>Financial Literacy 101</h1>
           <p>Welcome to the Financial Literacy Help Page. Here, you'll find basic advice and resources to get you started on the path to financial well-being.</p>

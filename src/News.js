@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './News.css'; // Ensure you have some basic styling
+import Navbar from './Navbar';
 
 function News() {
   const [newsItems, setNewsItems] = useState([]);
@@ -19,18 +20,7 @@ function News() {
 
   return (
     <>
-      <nav className="top-nav">
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/community">Community</Link></li>
-          <li><Link to="/progress">My Progress</Link></li>
-          <li><Link to="/friends">Friends</Link></li>
-          <li><Link to="/News">News</Link></li>
-          <li><Link to="/Help">Help</Link></li>
-          <li className="right"><Link to="/login" role="button">Login</Link></li>
-          <li className="right"><Link to="/signup" role="button">Signup</Link></li>
-        </ul>
-      </nav>
+      <Navbar/>
       <div className="news-container">
         <h1>Latest News</h1>
         {newsItems.length > 0 ? (

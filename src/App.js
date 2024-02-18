@@ -7,11 +7,13 @@ import Login from './Login';
 import Community from './Community';
 import Friends from './Friends';
 import Progress from './Progress';
+import { AuthProvider } from './AuthContext'; 
 import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom';
 
 function App() {
   return (
     <Router>
+      <AuthProvider>
       <Routes>
       <Route exact path="/" element={<Home/>} />
       <Route path="/News" element={<News/>} />
@@ -22,6 +24,7 @@ function App() {
       <Route path="/Friends" element={<Friends/>} />
       <Route path="/Progress" element={<Progress/>} />
       </Routes>
+      </AuthProvider>
     </Router>
   );
 }

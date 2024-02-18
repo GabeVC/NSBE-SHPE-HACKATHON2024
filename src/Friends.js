@@ -1,26 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Link, useNavigate } from 'react-router-dom';
-import './Friends.css'
+import { useAuth } from './AuthContext';
+import Navbar from './Navbar';
 
 
 const Friends = () => {
-    return (
-      <>
-        <nav className="top-nav">
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/community">Community</Link></li>
-            <li><Link to="/Progress">My Progress</Link></li>
-            <li><Link to="/friends">Friends</Link></li>
-            <li><Link to="/News">News</Link></li>
-            <li><Link to="/Help">Help</Link></li>   
-            <li className="right"><Link to="/login" role="button">Login</Link></li>
-            <li className="right"><Link to="/signup" role="button">Signup</Link></li>
-          </ul>
-        </nav>
-      </>
-    );
-  };
+  const [friends, setFriends] = useState([]);
+  const { currentUser } = useAuth(); // currentUser is now a string (username)
+
+  useEffect(() => {
+    if (currentUser) {
+      fetchFriends();
+    }
+  }, [currentUser]);
+
   
-  export default Friends;
+  const fetchFriends = async () => {
+    try {
+      // Since currentUser is a username string, directly use it in the API call
+      console.log(currentUser);
+      const response = await axios.get(`http://localhost:5000/friends?username=${currentUser}`);
+      setFriends(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching friends:', error);
+    }
+  };
+
+  return (
+    <>
+      <Navbar />
+      <div>
+        <button onClick={fetchFriends}>Fetch Friends</button>
+        {friends.length > 0 ? (
+          <ul>
+            {friends.map((friend, index) => (
+              <li key={index}>{friend[0]+":"+friend[1]+"\%"}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No friends to show.</p>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default Friends;

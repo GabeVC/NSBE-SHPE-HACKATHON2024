@@ -1,26 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Link, useNavigate } from 'react-router-dom';
-import './Community.css'
+import { useAuth } from './AuthContext';
+import Navbar from './Navbar';
 
 
-const Community = () => {
-    return (
-      <>
-        <nav className="top-nav">
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/community">Community</Link></li>
-            <li><Link to="/progress">My Progress</Link></li>
-            <li><Link to="/friends">Friends</Link></li>
-            <li><Link to="/News">News</Link></li>
-            <li><Link to="/Help">Help</Link></li>
-            <li className="right"><Link to="/login" role="button">Login</Link></li>
-            <li className="right"><Link to="/signup" role="button">Signup</Link></li>
-          </ul>
-        </nav>
-      </>
-    );
-  };
+const Communities = () => {
+  const [communities, setCommunities] = useState([]);
+  const { currentUser } = useAuth(); // currentUser is now a string (username)
+
+  useEffect(() => {
+    if (currentUser) {
+      fetchCommunities();
+    }
+  }, [currentUser]);
+
   
-  export default Community;
+  const fetchCommunities = async () => {
+    try {
+      // Since currentUser is a username string, directly use it in the API call
+      console.log(currentUser);
+      const response = await axios.get(`http://localhost:5000/community?username=${currentUser}`);
+      setCommunities(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching communities:', error);
+    }
+  };
+
+  return (
+    <>
+      <Navbar />
+      <div>
+        <button onClick={fetchCommunities}>Fetch Communities</button>
+        {communities.length > 0 ? (
+          <ul>
+            {communities.map((community, index) => (
+              <li key={index}>{community[0]+":"+community[1]+"\%"}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No friends to show.</p>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default Community;

@@ -27,9 +27,11 @@
     flex-direction: column;
     width: 90%;
     max-width: 400px;
+    margin-top:5px;
      /* Adjust space above the form if needed */
   }
-  
+  .name,
+  .number,
   .un,
   .pass,
   .pass2 {

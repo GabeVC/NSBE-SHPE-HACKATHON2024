@@ -64,7 +64,9 @@
   border: 1px solid #ddd;
   border-radius: 5px;
 }
-
+.error {
+  color: red
+}
 .submit {
   padding: 10px;
   margin: 20px 0;
