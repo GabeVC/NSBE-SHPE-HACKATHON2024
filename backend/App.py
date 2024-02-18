@@ -12,6 +12,8 @@ app = Flask(__name__)
 CORS(app, origins="http://localhost:3000")
 users = []
 communities = []
+community1 = community("RPI", "RPI")
+communities.append(["RPI", community1])
 
 ALPHA_VANTAGE_API_KEY = 'NZVS9E5I7YNB61AF'
 ALPHA_VANTAGE_NEWS_ENDPOINT = 'https://www.alphavantage.co/query'
@@ -61,6 +63,8 @@ def login_user():
         # Check if the password matches
         if user[1] == password:
             user[2].addFriend(Person("Doggo","boby", "go", 567))
+            user[2].addFriend(Person("David","boby", "go", 567))
+            user[2].addFriend(Person("Diego","boby", "go", 567))
             return jsonify({"success": True, "user": user[0]}), 200    
         else:
             return jsonify({"success": False, "user": None}), 401
@@ -108,12 +112,14 @@ def get_friends():
         
         # Check if the user exists in the users list
         user = next((user for user in users if user[0] == username), None)
-        friends = []
+        friends = [] 
+        i = 3
         if user:
             # Assuming the third element of the tuple is a list of friend usernames
             for friend in user[2].friends:
+                i += 7
                 print(friend.name)
-                friends.append((friend.name, math.ceil(friend.percentSeason+(5/52)*100)))
+                friends.append((friend.name, math.ceil(friend.percentSeason+(i/52)*100)))
             return jsonify(friends)
         else:
             # If the username is not found, return an error message
@@ -200,11 +206,13 @@ def add_community():
         print(community_username+"!!!")
         # Find the user object based on the username
         user = next((user for user in users if user[0] == username), None)
-
         if user!= None:
             print("ok now here")
             # Add friend to user's friend list (assuming friends is the list of friends in the user object)
             user[2].addCommunity(community_username)
+            for c in communities:
+                if c[0] == community_username:
+                    c[1].addPerson(user[0])
             print("Hi")
             
             # Return a success response
