@@ -1,0 +1,53 @@
+.set-goal-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Styles for the form */
+  .set-goal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Label styling */
+  .set-goal-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  /* Input and button styling */
+  .set-goal-form input,
+  .set-goal-form button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  /* Button specific styling */
+  .set-goal-form button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .set-goal-form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Styling for the result message */
+  .result-message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+    border-radius: 5px;
+    text-align: center;
+  }

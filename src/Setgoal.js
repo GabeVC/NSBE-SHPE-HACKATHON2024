@@ -1,76 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import './Progress.css';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Progress.css'; // Ensure this path is correct
 import Navbar from './Navbar';
 import axios from 'axios';
-
-// const Setgoal = () => {
-//   const [totalSaved, setTotalSaved] = useState('');
-//   const [weeklySaving, setWeeklySaving] = useState('');
-//   const [goal, setGoal] = useState('');
-//   const [weeksNeeded, setWeeksNeeded] = useState(null);
-
-//   const calculateWeeksNeeded = (e) => {
-//     e.preventDefault(); // Prevent form submission from reloading the page
-//     if (goal && totalSaved && weeklySaving) {
-//       const weeks = Math.ceil((goal - totalSaved) / weeklySaving);
-//       setWeeksNeeded(weeks > 0 ? weeks : 'Goal already met');
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <Navbar/>
-//       <h1>Set Your Savings Goal</h1>
-//       <form onSubmit={calculateWeeksNeeded}>
-//         <div>
-//           <label htmlFor="goal">Goal Amount ($): </label>
-//           <input
-//             type="number"
-//             id="goal"
-//             value={goal}
-//             onChange={(e) => setGoal(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="totalSaved">Total Saved ($): </label>
-//           <input
-//             type="number"
-//             id="totalSaved"
-//             value={totalSaved}
-//             onChange={(e) => setTotalSaved(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="weeklySaving">Weekly Saving ($): </label>
-//           <input
-//             type="number"
-//             id="weeklySaving"
-//             value={weeklySaving}
-//             onChange={(e) => setWeeklySaving(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <button type="submit">Calculate Weeks</button>
-//       </form>
-//       {weeksNeeded !== null && (
-//         <h2>
-//           Weeks needed to reach goal: {weeksNeeded}
-//         </h2>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Setgoal;
-
-import { useAuth } from './AuthContext'; // Assuming you have access to useAuth
+import { useAuth } from './AuthContext';
+import './Setgoal.css';
 
 const Setgoal = () => {
-  const { currentUser } = useAuth(); // Assuming you have access to currentUser from AuthContext
-  const [totalSaved, setTotalSaved] = useState('');
+  const { currentUser } = useAuth();
+  const [totalSaved, setTotalSaved] = useState(0);
   const [weeklySaving, setWeeklySaving] = useState('');
   const [goal, setGoal] = useState('');
   const [weeksNeeded, setWeeksNeeded] = useState(null);
@@ -80,27 +18,30 @@ const Setgoal = () => {
     if (goal && weeklySaving) {
       const weeks = Math.ceil((goal - totalSaved) / weeklySaving);
       setWeeksNeeded(weeks > 0 ? weeks : 'Goal already met');
-    };
-    
+      await submitWeeksNeeded();
+    }
+  };
+
   const submitWeeksNeeded = async () => {
-      try {
-          const response = await axios.post(`http://localhost:5000/setGoal?username=${currentUser}`, {
-          username: currentUser, // Send the current user's identifier
-          goal_value: goal,
-          weekly_saving: weeklySaving
-        });
-        
-      } catch (error) {
-        console.error('Error setting goal:', error);
-      }
+    try {
+      await axios.post(`http://localhost:5000/setGoal`, {
+        username: currentUser,
+        goal_value: goal,
+        weekly_saving: weeklySaving,
+        total_saved: totalSaved
+      });
+      // Success handling goes here
+    } catch (error) {
+      console.error('Error setting goal:', error);
     }
   };
 
   return (
-    <div>
-      <Navbar/>
+    <>
+    <Navbar />
+    <div className="set-goal-container">
       <h1>Set Your Savings Goal</h1>
-      <form onSubmit={calculateWeeksNeeded}>
+      <form onSubmit={calculateWeeksNeeded} className="set-goal-form">
         <div>
           <label htmlFor="goal">Goal Amount ($): </label>
           <input
@@ -121,14 +62,15 @@ const Setgoal = () => {
             required
           />
         </div>
-        <button type="submit">Calculate Weeks</button>
+        <button type="submit">Go!</button>
       </form>
       {weeksNeeded !== null && (
-        <h2>
+        <div className="result-message">
           Weeks needed to reach goal: {weeksNeeded}
-        </h2>
+        </div>
       )}
     </div>
+    </>
   );
 };
 
