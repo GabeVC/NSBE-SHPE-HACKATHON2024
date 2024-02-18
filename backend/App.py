@@ -118,6 +118,29 @@ def get_friends():
     except Exception as e:
         # Return a server error message in case of an exception
         return jsonify({"error": str(e)}), 500
+        
+@app.route('/communities', methods=['GET'])
+def get_communitiess():
+    try:
+        print("HELLO")
+        # Retrieve the username from the query parameters
+        username = request.args.get('username')
+        
+        # Check if the user exists in the users list
+        user = next((user for user in users if user[0] == username), None)
+        communities = []
+        if user:
+            # Assuming the third element of the tuple is a list of friend usernames
+            for c in user[2].community:
+                print(c.name)
+                communities.append((c.name, c.community_goal_precent, c.people))
+            return jsonify(communities)
+        else:
+            # If the username is not found, return an error message
+            return jsonify({"message": "Community not found"}), 404
+    except Exception as e:
+        # Return a server error message in case of an exception
+        return jsonify({"error": str(e)}), 500
 
 
 
