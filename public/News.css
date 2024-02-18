@@ -1,0 +1,28 @@
+/* News.css */
+.news-container {
+    padding: 20px;
+  }
+  
+  .news-container h1 {
+    color: #333;
+  }
+  
+  .news-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .news-container li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .news-container li h2 {
+    margin: 0;
+    color: #007bff; /* A shade of blue */
+  }
+  
+  .news-container li p {
+    margin: 5px 0;
+  }
