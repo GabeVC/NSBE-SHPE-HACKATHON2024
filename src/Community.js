@@ -35,7 +35,7 @@ const Communities = () => {
         {communities.length > 0 ? (
           <ul>
             {communities.map((community, index) => (
-              <li key={index}>{community[0]+":"+community[1]+"\%"}</li>
+              <li key={index}>{community[0]+":"+community[1]+"\%"+community[2]}</li>
             ))}
           </ul>
         ) : (
