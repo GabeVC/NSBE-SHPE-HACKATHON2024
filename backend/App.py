@@ -133,7 +133,10 @@ def get_communitiess():
             # Assuming the third element of the tuple is a list of friend usernames
             for c in user[2].community:
                 print(c.name)
-                communities.append((c.name, c.community_goal_precent, c.people))
+                people = "\n"
+                for p in c.people:
+                    people += p.name + "\n"
+                communities.append((c.name, c.community_goal_precent, people))
             return jsonify(communities)
         else:
             # If the username is not found, return an error message
