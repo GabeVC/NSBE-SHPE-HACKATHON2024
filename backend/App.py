@@ -11,6 +11,7 @@ import math
 app = Flask(__name__)
 CORS(app, origins="http://localhost:3000")
 users = []
+communities = []
 
 ALPHA_VANTAGE_API_KEY = 'NZVS9E5I7YNB61AF'
 ALPHA_VANTAGE_NEWS_ENDPOINT = 'https://www.alphavantage.co/query'
@@ -184,7 +185,51 @@ def get_communities():
             return jsonify({"message": "Community not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/add-community', methods=['POST'])
+def add_community():
+    try:
+       
+        # Parse data sent from the frontend
+        data = request.json
+        print("I'm here")
+        # Extract necessary information from the data
+        username = data.get('username')
+        print(username+"!!!")
+        community_username = data.get('community_username')
+        print(community_username+"!!!")
+        # Find the user object based on the username
+        user = next((user for user in users if user[0] == username), None)
 
+        if user!= None:
+            print("ok now here")
+            # Add friend to user's friend list (assuming friends is the list of friends in the user object)
+            user[2].addCommunity(community_username)
+            print("Hi")
+            
+            # Return a success response
+            return jsonify({"success": True, "message": f"{friend_username} added you as a friend."}), 200, 200
+        else:
+            return jsonify({"success": False, "message": "User or friend not found."}), 404
+    
+    except Exception as e:
+        # Return a server error message in case of an exception
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/searchC', methods=['GET'])
+def search_communities():
+    try:
+        # Retrieve the search query from the query parameters
+        search_query = request.args.get('query')
+        
+        # Search for potential matches in the list of users
+        matches = [communities[0] for community in communities if search_query.lower() in communities[0].lower()]
+        
+        return jsonify(matches), 200
+    except Exception as e:
+        # Return a server error message in case of an exception
+        return jsonify({"error": str(e)}), 500
+    
 @app.route('/Seegoal', methods=['GET'])
 def see_goal():
     try:
