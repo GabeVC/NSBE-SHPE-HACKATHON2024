@@ -1,13 +1,11 @@
 from datetime import datetime, timedelta
-import community_class
 
 #Alpha Vantage API Key: NZVS9E5I7YNB61AF
 
 class Person:
-    def __init__(self, name, id, userName, password, number, period):
+    def __init__(self, name, userName, password, number ):
         self.name = name #name of the person
-        self.id = id #id
-        self.userName = userName #username 
+        self.id = userName #username 
         self.password = password #password
         self.number = number
         self.goal = 0.0 #goal of the person
@@ -24,14 +22,13 @@ class Person:
         self.yearlyGoal = 0.0 #yearly goal
         self.goalSetDate = None #date goal was set
         self.paymentDueDate = None #date payment is due
-        self.weekofPeriod = period #week of period
-        
+
         
     #calculate the percent saved   
     def calculatePercentSaved(self):
         self.totalPercent = self.totalSaved/self.goal
     
-    def setGoal(self, value, paymentOption, period):
+    def setGoal(self, value, paymentOption):
         self.goal = float(value)
         self.payment = float(paymentOption)
         self.paymentOwed = float(paymentOption)
@@ -78,6 +75,7 @@ class Person:
                 self.paymentOwed -= value
                 self.percentSeason += (value/self.payment)/52
         self.updateFriendsGoal()
+        self.calculatePercentSaved()
     
     def addCommunity(self, a_community):
         for c in self.community:

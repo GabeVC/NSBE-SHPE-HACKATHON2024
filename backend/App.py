@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_cors import cross_origin
 from community_class import community
 import requests 
+import math
 
 
 
@@ -110,7 +111,7 @@ def get_friends():
             # Assuming the third element of the tuple is a list of friend usernames
             for friend in user[2].friends:
                 print(friend.name)
-                friends.append((friend.name, friend.percentSeason))
+                friends.append((friend.name, math.ceil(friend.percentSeason+(5/52)*100)))
             return jsonify(friends)
         else:
             # If the username is not found, return an error message
@@ -119,33 +120,52 @@ def get_friends():
         # Return a server error message in case of an exception
         return jsonify({"error": str(e)}), 500
         
-@app.route('/communities', methods=['GET'])
-def get_communitiess():
+
+@app.route('/community', methods=['GET'])
+def get_communities():
     try:
-        print("HELLO")
-        # Retrieve the username from the query parameters
         username = request.args.get('username')
-        
-        # Check if the user exists in the users list
         user = next((user for user in users if user[0] == username), None)
         communities = []
         if user:
-            # Assuming the third element of the tuple is a list of friend usernames
             for c in user[2].community:
-                print(c.name)
-                people = "\n"
-                for p in c.people:
-                    people += p.name + "\n"
-                communities.append((c.name, c.community_goal_precent, people))
-            return jsonify(communities)
+                people = [p.name for p in c.people]
+                communities.append({"name": c.name, "community_goal_percent": c.community_goal_percent, "people": people})
+            return jsonify(communities), 200
         else:
-            # If the username is not found, return an error message
             return jsonify({"message": "Community not found"}), 404
     except Exception as e:
-        # Return a server error message in case of an exception
         return jsonify({"error": str(e)}), 500
 
-
-
+@app.route('/setGoal', methods=['POST'])
+def goal_set():
+    try:
+        # Parse data sent from the frontend
+        data = request.json
+        
+        # Extract necessary information from the data
+        username = data.get('username')
+        goal_value = data.get('goal_value')
+        weekly_saving = data.get('weekly_saving')
+        
+        # Find the user object based on the username
+        user = next((user for user in users if user[0] == username), None)
+        
+        if user:
+            # Update the user's Person object with the received goal data
+            user[2].setGoal(goal_value, weekly_saving)
+            
+            # Calculate weeks needed here if necessary
+            
+            # Return a success response with weeksNeeded if calculated
+            # You can adjust this response as needed based on your requirements
+            return jsonify({"success": True, "weeksNeeded": user[2].weeksNeeded}), 200
+        else:
+            return jsonify({"success": False, "message": "User not found"}), 404
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+    
 if __name__ == "__main__":
     app.run(debug=True)
