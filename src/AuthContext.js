@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const user = localStorage.getItem('currentUser');
     if (user) {
-      setCurrentUser(JSON.parse(user));
+      //setCurrentUser(JSON.parse(user));
     }
   }, []);
 
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setCurrentUser(null);
-    localStorage.removeItem('currentUser');
+    //localStorage.removeItem('currentUser');
   };
 
   const value = {
