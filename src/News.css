@@ -1,28 +1,148 @@
 /* News.css */
 .news-container {
-    padding: 20px;
+  padding: 20px;
+  background-color: #f4f4f4; /* Light grey background for better readability */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 1000px; /* Adjust width as needed */
+  margin: 20px auto;
+  color: #333;
+}
+
+.news-container h1 {
+  color: #2e7d32; /* Green color for the header to match the theme */
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.news-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.news-container li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #ffffff; /* White background for each news item */
+  border-radius: 4px;
+  transition: box-shadow 0.3s ease;
+}
+
+.news-container li:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.news-container li h2 {
+  margin: 0 0 10px 0;
+  color: #007bff;
+  font-size: 1.5em;
+}
+
+.news-container li p {
+  margin: 5px 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.news-image {
+  width: 20%; /* Adjust the width of the image to 20% of its parent */
+  max-width: 120px; /* Additionally, constrain the maximum width */
+  margin-right: 15px;
+  object-fit: cover; /* This will prevent the images from stretching */
+  border-radius: 4px;
+}
+
+.news-text {
+  flex: 1;
+}
+
+.news-quiz {
+  margin-top: 15px;
+}
+
+.news-quiz .quiz-question {
+  font-weight: bold;
+}
+
+.news-quiz label {
+  display: block;
+  margin-top: 5px;
+}
+
+.news-quiz input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .news-container {
+    padding: 10px;
   }
-  
+
   .news-container h1 {
-    color: #333;
+    font-size: 1.5em;
   }
-  
-  .news-container ul {
-    list-style-type: none;
-    padding: 0;
+
+  .news-image {
+    width: 25%; /* Slightly larger on small screens */
+    max-width: 100px; /* Constrain the maximum width */
   }
-  
+}
+
+@media (max-width: 480px) {
   .news-container li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .news-image {
+    width: 100%; /* Full width on extra small screens */
+    max-width: none;
     margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
   }
-  
-  .news-container li h2 {
-    margin: 0;
-    color: #007bff; /* A shade of blue */
+
+  .news-text {
+    width: 100%;
   }
-  
-  .news-container li p {
-    margin: 5px 0;
-  }
+}
+
+.fetch-quizzes-btn {
+  display: block;
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  padding: 10px 20px;
+  margin: 20px auto;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.fetch-quizzes-btn:hover {
+  background-color: #45a049; /* Darker shade of green */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* Your responsive styles */
+}
+
+.answer-correct {
+  color: green;
+  margin-left: 10px;
+}
+
+.answer-incorrect {
+  color: red;
+  margin-left: 10px;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center; /* Align radio button and text on the same line */
+}
+
