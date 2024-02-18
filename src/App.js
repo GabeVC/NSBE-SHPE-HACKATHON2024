@@ -7,6 +7,7 @@ import Login from './Login';
 import Community from './Community';
 import Friends from './Friends';
 import Progress from './Progress';
+import Setgoal from './Setgoal';
 import { AuthProvider } from './AuthContext'; 
 import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ function App() {
       <Route path="/Community" element={<Community/>} />
       <Route path="/Friends" element={<Friends/>} />
       <Route path="/Progress" element={<Progress/>} />
+      <Route path="/Setgoal" element={<Setgoal/>} />
       </Routes>
       </AuthProvider>
     </Router>

@@ -3,8 +3,7 @@ import axios from 'axios';
 import { useAuth } from './AuthContext';
 import Navbar from './Navbar';
 
-
-const Communities = () => {
+const Community = () => {
   const [communities, setCommunities] = useState([]);
   const { currentUser } = useAuth(); // currentUser is now a string (username)
 
@@ -14,14 +13,10 @@ const Communities = () => {
     }
   }, [currentUser]);
 
-  
   const fetchCommunities = async () => {
     try {
-      // Since currentUser is a username string, directly use it in the API call
-      console.log(currentUser);
       const response = await axios.get(`http://localhost:5000/community?username=${currentUser}`);
       setCommunities(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error('Error fetching communities:', error);
     }
@@ -35,11 +30,21 @@ const Communities = () => {
         {communities.length > 0 ? (
           <ul>
             {communities.map((community, index) => (
-              <li key={index}>{community[0]+":"+community[1]+"\%"+community[2]}</li>
+              // Assuming community is an object with name, community_goal_percent, and people properties
+              <li key={index}>
+                <strong>{community.name}</strong>: {community.community_goal_percent}%<br/>
+                People: 
+                <ul>
+                  {/* Assuming people is a list of names */}
+                  {community.people.map((person, personIndex) => (
+                    <li key={personIndex}>{person}</li>
+                  ))}
+                </ul>
+              </li>
             ))}
           </ul>
         ) : (
-          <p>No friends to show.</p>
+          <p>No communities to show.</p>
         )}
       </div>
     </>
