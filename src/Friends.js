@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
@@ -86,7 +85,9 @@ const Friends = () => {
           <p>No search results to show.</p>
         )}
       </div>
-      <button onClick={fetchFriends} className="fetch-friends-btn">Fetch Friends</button>
+      <div className="button-container">
+      <button onClick={fetchFriends} className="fetch-friends-btn">Refresh</button>
+      </div>
         <div className="friends-container">
           {friends.length > 0 ? (
             <ul>

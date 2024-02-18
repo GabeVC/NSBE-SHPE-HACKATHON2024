@@ -1,53 +1,46 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  
-  /* If you have a specific container for your homepage, use something like */
-  .home-container {
-    background-image: url('./home_background.webp');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh; /* Make sure it covers the full viewport height */
-  }
+.text-boxes-container {
+  display: flex;
+  justify-content: space-between; /* Distribute boxes evenly */
+  width: 100%;
+  max-width: 1200px; /* Adjust based on your design preference */
+  margin-top: 20px;
+  padding: 0 20px; /* Add padding to prevent content from touching the edges */
+}
 
-.top-nav ul {
-    list-style-type: none;
-    margin: 0;
+.text-box {
+  flex: 1; /* Allow boxes to grow and take up equal space */
+  margin: 0 10px; /* Add some margin between boxes */
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the text content */
+  justify-content: center; /* Vertically center the content for taller boxes */
+  text-align: center; /* Ensure text is centered */
+}
+
+/* Ensure that the boxes do not shrink smaller than a minimum width */
+.text-box {
+  min-width: 250px; /* Adjust this value to prevent boxes from getting too small */
+}
+
+@media (max-width: 768px) {
+  .text-boxes-container {
+    flex-direction: column;
     padding: 0;
-    overflow: hidden;
-    background-color: #333;
   }
   
-  .top-nav ul li {
-    float: left;
-  }
-  
-  .top-nav ul li.right {
-    float: right;
-  }
-  
-  .top-nav ul li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  .top-nav ul li a:hover {
-    background-color: #ddd;
-    color: black;
-  }
   .text-box {
-    width: 200px; /* Adjust as needed */
-    padding: 20px;
-    background-color: #f0f0f033;
-    border: 1px solid #ccc;
-    margin: 100px;
-}
-
-.left-box {
-    float: left;
-}
-
-.right-box {
-    float: right;
+    margin: 10px 0; /* Adjust margin for vertical layout */
+    width: 80%; /* Make boxes take more width on smaller screens */
+    min-width: 0; /* Reset min-width for small screens */
+  }
 }

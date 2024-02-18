@@ -1,0 +1,10 @@
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .carousel-container img {
+    width: 100%;
+    transition: transform 0.5s ease;
+  }
